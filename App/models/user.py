@@ -41,7 +41,7 @@ class Competition(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'date': self.date.isoformat(),
+            'date': self.date,
             'description': self.description
         }
 
