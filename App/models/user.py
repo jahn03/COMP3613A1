@@ -47,11 +47,11 @@ class Competition(db.Model):
 
 class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    competition_id = db.Column(db.Integer, db.ForeignKey('competition_id'), nullable=False)
+    competition_id = db.Column(db.Integer, db.ForeignKey('competition.id'), nullable=False)
     student_name = db.Column(db.String(255), nullable=False)
     score = db.Column(db.Integer, nullable=False)
 
-    competition = db.relationship('Competition', backref=db.backref('results', lazy=True))
+    competition = db.relationship('Competition', backref=db.backref('result'))
 
     def __init__(self, competition_id, student_name, score):
         self.competition_id = competition_id
