@@ -53,18 +53,18 @@ class Result(db.Model):
 
     competition = db.relationship('Competition', backref=db.backref('results', lazy=True))
 
-def __init__(self, competition_id, student_name, score):
-    self.competition_id = competition_id
-    self.student_name = student_name
-    self.score = score
+    def __init__(self, competition_id, student_name, score):
+        self.competition_id = competition_id
+        self.student_name = student_name
+        self.score = score
 
-def get_json(self):
-    return {
-        'id': self.id,
-        'competition_id': self.competition_id,
-        'student_name': self.student_name,
-        'score': self.score
-    }
+    def get_json(self):
+        return {
+            'id': self.id,
+            'competition_id': self.competition_id,
+            'student_name': self.student_name,
+            'score': self.score
+        }
 
 
 #--------------------------------------------------------------------------
