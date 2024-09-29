@@ -3,7 +3,7 @@ from flask import Flask
 from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate, get_all_competitions
-from App.models import User
+from App.models import User, Competition, Result
 from App.main import create_app
 from App.controllers import ( create_user, get_all_users_json, get_all_users, create_competition, get_all_competitions, get_all_competitions_json, create_result, get_all_results, get_all_results_json, import_competitions_result_from_file, initialize )
 
