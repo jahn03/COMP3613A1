@@ -42,7 +42,7 @@ def create_competition(name, date, description):
     db.session.commit()
     return new_competition
 
-def ger_all_competitions():
+def get_all_competitions():
     return Competition.query.all()
 
 def get_all_competitions_json():
