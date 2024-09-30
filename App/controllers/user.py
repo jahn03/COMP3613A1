@@ -3,6 +3,7 @@ from App.database import db
 #-------
 import os
 import csv
+import datetime
 #-------
 
 # user functions
@@ -40,7 +41,8 @@ def update_user(id, username):
 
 # competition functoins
 
-def create_competition(name, date, description):
+def create_competition(name, date_str, description):
+    date = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
     new_competition = Competition(name=name, date=date, description=description)
     db.session.add(new_competition)
     db.session.commit()
