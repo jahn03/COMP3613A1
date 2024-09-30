@@ -1,5 +1,9 @@
 from App.models import User, Competition, Result
 from App.database import db
+#-------
+import os
+import csv
+#-------
 
 # user functions
 def create_user(username, password):
