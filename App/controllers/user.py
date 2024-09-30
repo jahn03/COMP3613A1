@@ -1,4 +1,4 @@
-from App.models import User, Competition, Result
+from App.models import User, Competition, Result, db
 from App.database import db
 #-------
 import os
@@ -83,34 +83,26 @@ def get_all_results_json():
 def get_results_by_competition(competition_id):
     return Result.query.filter_by(competition_id=competition_id).all()
 
-def import_competitions_result_from_file(file_path):
-    file_abs_path = os.path.join('data', file_path)
+def import_competition_results_from_file(file_path):
+    with open(file_path, mode='r') as file:
+        csv_reader = csv.reader(file)
+        next(csv_reader) 
 
-    try:
-        with open(file_abs_path, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
+        for row in csv_reader:
+            try:
+                competition_id = int(row[1])  
+                participant_name = row[2]     
+                score = float(row[3])          
 
-            for row in reader:
-                competition_id = int(row['competition_id'])
-                student_name = row['student_name']
-                score = int(row['score'])
+                result = Result(competition_id=competition_id, student_name=participant_name, score=score)
+                db.session.add(result)
+            except ValueError as e:
+                print(f"Error processing row {row}: {e}")
+                continue  
+                
+    db.session.commit()
+    print("Results imported successfully.")
 
-                new_result = Result(
-                    competition_id=competition_id,
-                    student_name=student_name,
-                    score=score
-                )
-
-                db.session.add(new_result)
-
-            db.session.commit()
-            print(f"Results imported from {file_path}")
-    
-    except FileNotFoundError:
-        print(f"File not found")
-    
-    except Exception as e:
-        print(f"Error: {e}")
 
 
 #-------------------------------------------

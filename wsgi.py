@@ -1,11 +1,22 @@
-import click, pytest, sys
+import click, pytest, sys, csv
 from flask import Flask
 from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.models import User, Competition, Result
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, create_competition, get_all_competitions, get_all_competitions_json, create_result, get_all_results, get_all_results_json, import_competitions_result_from_file, initialize )
+from App.controllers import (
+    create_user, 
+    get_all_users_json, 
+    get_all_users, 
+    create_competition, 
+    get_all_competitions, 
+    get_all_competitions_json, 
+    create_result, 
+    get_all_results, 
+    get_all_results_json, 
+    import_competition_results_from_file, 
+    initialize )
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -62,7 +73,7 @@ competition_cli = AppGroup('competition', help='Competition object commans')
 # 1: create competition
 def create_competition_command(name, date, description):
     create_competition(name, date, description)
-    print(f'Competiition {name} created!')
+    print(f'Competition {name} created!')
 
 # 3: view competitions list
 @competition_cli.command("list", help="View competitions list")
@@ -105,9 +116,10 @@ def list_result_command(format):
 
 # 2: Import competition results from file
 @result_cli.command("import", help="Import competition results from file")
-@click.argument("file_path")
+@click.argument("file_name")
 
-def import_result_command(file_path):
+def import_result_command(file_name):
+    file_path = f'App/data/{file_name}'
     import_competition_results_from_file(file_path)
     print(f'Competition results imported from {file_path}')
 
