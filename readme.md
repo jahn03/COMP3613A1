@@ -153,8 +153,7 @@ $ pytest
 
 # CLI COMMANDS
 
-Competitions Platform
-An application for students to showcase their participation in coding competitions.
+Competitions Platform: An application for students to showcase their participation in coding competitions.
 
 The commands below are used to satisfy the project requirement specifications:
 
@@ -163,18 +162,18 @@ Create Competition:
     $ flask competition create "New Competition" "2024-09-25" "A competition description."
 ```
 
-Import competition results from file
+Import competition results from file:
 ```bash
     $ flask result import results.csv
 ```
 
-View competitions list
+View competitions list:
 ```bash
     $ flask competition list
     $ flask competition list json
 ```
 
-View competition results
+View competition results:
 ```bash
     $ flask result list
     $ flask result list json
